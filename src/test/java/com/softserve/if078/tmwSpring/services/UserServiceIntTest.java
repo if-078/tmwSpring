@@ -1,4 +1,4 @@
-package com.softserve.if078.tmwSpring.dao;
+package com.softserve.if078.tmwSpring.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,23 +10,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.softserve.if078.tmwSpring.TmwSpringApplicationTests;
 import com.softserve.if078.tmwSpring.configurations.H2DbConfig;
-import com.softserve.if078.tmwSpring.services.UserService;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = "com.softserve.if078.tmwSpring")
 @SpringBootTest(classes = { TmwSpringApplicationTests.class, H2DbConfig.class })
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @EnableConfigurationProperties
-public class UserDaoIT {
+public class UserServiceIntTest {
 
 	@Autowired
 	UserService userService;
 
 	@Test
-	public void iTShouldGetAll() {
-		System.out.println("----------------");
-		//System.out.println(userService.getAll().size());
-		System.out.println("----------------------");
+	public void itShouldGetAll() {
+		System.out.println(userService.getAll().size());
 	}
 
 }

@@ -31,6 +31,7 @@ public class H2DbConfig {
 	@Primary
 	@ConfigurationProperties(prefix = "datasource-test")
 	public DataSourceProperties dataSourceProperties() {
+		initDb();
 
 		return new DataSourceProperties();
 	}
@@ -60,5 +61,4 @@ public class H2DbConfig {
 			System.err.println("Some exp in script");
 		}
 	}
-
 }
