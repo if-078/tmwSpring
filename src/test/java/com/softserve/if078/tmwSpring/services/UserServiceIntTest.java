@@ -1,5 +1,7 @@
 package com.softserve.if078.tmwSpring.services;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.softserve.if078.tmwSpring.TmwSpringApplicationTests;
 import com.softserve.if078.tmwSpring.configurations.H2DbConfig;
+import com.softserve.if078.tmwSpring.entities.User;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = "com.softserve.if078.tmwSpring")
@@ -21,8 +24,30 @@ public class UserServiceIntTest {
 	UserService userService;
 
 	@Test
-	public void itShouldGetAll() {
-		System.out.println(userService.getAll().size());
+	public void iTShouldInsertUser()
+	    throws Exception {
+		// Given
+		User userTest = new User();
+		userTest.setName("userAcademy");
+		userTest.setEmail("softServeAcademy@gmail.test");
+		userTest.setPass("academypassword");
+		// When
+		boolean isInsert = userService.create(userTest);
+		//Then
+		assertEquals(true, isInsert);
+	}
+
+	@Test
+	public void iTShouldGetAllUsersAndGetOne()
+	    throws Exception {
+		// Given
+		User userFromList;
+		User userGetOne;
+		// When
+		userFromList = userService.getAll().stream().findFirst().get();
+		userGetOne = userService.get(userFromList.getId());
+		//Then
+		assertEquals(userFromList.getId(), userGetOne.getId());
 	}
 
 }
