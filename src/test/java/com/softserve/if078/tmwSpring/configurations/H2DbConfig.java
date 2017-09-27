@@ -48,7 +48,7 @@ public class H2DbConfig {
 
 	public void initDb() {
 		try {
-			File f = new File("src\\test\\resources\\h2_script.sql");
+			File f = new File("src/test/resources/h2_script.sql");
 			FileReader reader = null;
 			try {
 				reader = new FileReader(f);

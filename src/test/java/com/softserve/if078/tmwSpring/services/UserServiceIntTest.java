@@ -24,8 +24,7 @@ public class UserServiceIntTest {
 	UserService userService;
 
 	@Test
-	public void iTShouldInsertGetAllUsersAndGetOne()
-	    throws Exception {
+	public void iTShouldInsertGetAllUsersAndGetOne() throws Exception {
 		// Given
 		User userNew = new User();
 		userNew.setEmail("softServeAcademy@gmail.test");
