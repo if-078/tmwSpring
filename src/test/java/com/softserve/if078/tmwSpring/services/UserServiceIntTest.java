@@ -33,7 +33,7 @@ public class UserServiceIntTest {
 		userTest.setPass("academypassword");
 		// When
 		boolean isInsert = userService.create(userTest);
-		//Then
+		// Then
 		assertEquals(true, isInsert);
 	}
 
@@ -46,7 +46,7 @@ public class UserServiceIntTest {
 		// When
 		userFromList = userService.getAll().stream().findFirst().get();
 		userGetOne = userService.get(userFromList.getId());
-		//Then
+		// Then
 		assertEquals(userFromList.getId(), userGetOne.getId());
 	}
 

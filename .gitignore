@@ -1,7 +1,8 @@
-# Maven
+# Maven ###
 log/
 target/
 !.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
 
 ### STS ###
 .apt_generated
@@ -25,7 +26,35 @@ dist/
 nbdist/
 .nb-gradle/
 
-# Eclipse
+### Eclipse ###
 .classpath
 .project
 .settings/
+
+### Binaries ###
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+### Git ###
+.git/
+git/
+.git
+*.log
+
+*.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
