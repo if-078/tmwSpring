@@ -16,13 +16,15 @@ import com.softserve.if078.tmwSpring.entities.User;
 
 @Component
 public class UserDaoImpl implements AbstractDAO<User> {
+	
+	private final String tabName = "tmw.user";
 
 	@Autowired
 	DataSource datasource;
 
 	@Override
 	public List<User> getAll() {
-		String sql = "SELECT * FROM tmw.user";
+		String sql = "SELECT * FROM " + tabName;
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
 
@@ -40,8 +42,8 @@ public class UserDaoImpl implements AbstractDAO<User> {
 	}
 
 	@Override
-	public User get(Integer id) {
-		String sql = "SELECT * FROM tmw.user WHERE user_id=" + id;
+	public User get(int id) {
+		String sql = "SELECT * FROM "+ tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
 			if (rs.next()) {
@@ -53,56 +55,7 @@ public class UserDaoImpl implements AbstractDAO<User> {
 		return null;
 	}
 
-	@Override
-	public boolean update(User entity, Integer id) {
-		String sql = "UPDATE tmw.user SET name=?, pass=?, email=? WHERE user_id=?";
-		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql);) {
-			ps.setString(1, entity.getName());
-			ps.setString(2, entity.getPass());
-			ps.setString(3, entity.getEmail());
-			ps.setInt(4, id);
-			int i = ps.executeUpdate();
-			if (i == 1) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
-		return false;
-	}
-
-	@Override
-	public boolean delete(Integer id) {
-		String sql = "DELETE FROM tmw.user WHERE user_id=" + id;
-		try (Statement stmt = datasource.getConnection().createStatement();) {
-			int i = stmt.executeUpdate(sql);
-			if (i == 1) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	@Override
-	public boolean create(User entity) {
-		String sql = "INSERT INTO tmw.user VALUES (NULL, ?, ?, ?)";
-		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql)) {
-			ps.setString(1, entity.getName());
-			ps.setString(2, entity.getPass());
-			ps.setString(3, entity.getEmail());
-			int i = ps.executeUpdate();
-			if (i == 1) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return false;
-	}
 
 	private User extractUserFromResultSet(ResultSet rs) throws SQLException {
 		User user = new User();
@@ -112,5 +65,48 @@ public class UserDaoImpl implements AbstractDAO<User> {
 		user.setEmail(rs.getString("email"));
 
 		return user;
+	}
+
+	@Override
+	public void update(User entity) {
+		String sql = "UPDATE "+tabName+" SET name=?, pass=?, email=? WHERE user_id=?";
+		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql);) {
+			ps.setString(1, entity.getName());
+			ps.setString(2, entity.getPass());
+			ps.setString(3, entity.getEmail());
+			ps.setInt(4, entity.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void delete(int id) {
+		String sql = "DELETE FROM "+tabName+" WHERE user_id=" + id;
+		try (Statement stmt = datasource.getConnection().createStatement();) {
+		stmt.executeUpdate(sql);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	@Override
+	public void create(User entity) {
+		String sql = "INSERT INTO "+tabName+" (name, pass, email)  VALUES (?, ?, ?)";
+		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql)) {
+			ps.setString(1, entity.getName());
+			ps.setString(2, entity.getPass());
+			ps.setString(3, entity.getEmail());
+			ps.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

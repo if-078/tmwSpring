@@ -25,18 +25,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean update(User entity, Integer id) {
-		return userDao.update(entity, id);
+	public void update(User entity, Integer id) {
+		 userDao.update(entity);
 	}
 
 	@Override
-	public boolean delete(Integer id) {
-		return userDao.delete(id);
+	public void delete(Integer id) {
+		 userDao.delete(id);
 	}
 
 	@Override
-	public boolean create(User entity) {
-		return userDao.create(entity);
+	public void create(User entity) {
+	  userDao.create(entity);
 	}
 
 }

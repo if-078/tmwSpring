@@ -6,12 +6,12 @@ public interface AbstractDAO<E> {
 
 	List<E> getAll();
 
-	E get(Integer id);
+	E get(int id);
 
-	boolean update(E entity, Integer id);
+	void update(E entity);
 
-	boolean delete(Integer id);
+	void delete(int id);
 
-	boolean create(E entity);
+	void create(E entity);
 
 }

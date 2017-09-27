@@ -24,30 +24,20 @@ public class UserServiceIntTest {
 	UserService userService;
 
 	@Test
-	public void iTShouldInsertUser()
+	public void iTShouldInsertGetAllUsersAndGetOne()
 	    throws Exception {
 		// Given
-		User userTest = new User();
-		userTest.setName("userAcademy");
-		userTest.setEmail("softServeAcademy@gmail.test");
-		userTest.setPass("academypassword");
-		// When
-		boolean isInsert = userService.create(userTest);
-		// Then
-		assertEquals(true, isInsert);
-	}
-
-	@Test
-	public void iTShouldGetAllUsersAndGetOne()
-	    throws Exception {
-		// Given
+		User userNew = new User();
+		userNew.setEmail("softServeAcademy@gmail.test");
+		userNew.setPass("academypassword");
 		User userFromList;
-		User userGetOne;
+		User userTest;
 		// When
+		userService.create(userNew);
 		userFromList = userService.getAll().stream().findFirst().get();
-		userGetOne = userService.get(userFromList.getId());
+		userTest = userService.get(userFromList.getId());
 		// Then
-		assertEquals(userFromList.getId(), userGetOne.getId());
+		assertEquals(userFromList.getId(), userTest.getId());
 	}
 
 }

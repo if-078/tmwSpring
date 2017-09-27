@@ -10,10 +10,10 @@ public interface UserService {
 
 	User get(Integer id);
 
-	boolean update(User entity, Integer id);
+	void update(User entity, Integer id);
 
-	boolean delete(Integer id);
+	void delete(Integer id);
 
-	boolean create(User entity);
+	void create(User entity);
 
 }
