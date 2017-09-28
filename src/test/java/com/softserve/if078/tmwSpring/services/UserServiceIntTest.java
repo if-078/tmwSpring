@@ -24,7 +24,7 @@ public class UserServiceIntTest {
 	UserService userService;
 
 	@Test
-	public void iTShouldInsertGetAllUsersAndGetOne()
+	public void iTShouldInsertAndGetOne()
 	    throws Exception {
 		// Given
 		User userNew = new User();
