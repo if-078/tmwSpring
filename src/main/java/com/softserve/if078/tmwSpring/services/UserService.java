@@ -1,19 +1,20 @@
 package com.softserve.if078.tmwSpring.services;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.softserve.if078.tmwSpring.entities.User;
 
 public interface UserService {
 
-	List<User> getAll();
+	List<User> getAll()throws SQLException;
 
-	User get(Integer id);
+	User get(Integer id)throws SQLException;
 
-	void update(User entity, Integer id);
+	boolean update(User entity)throws SQLException;
 
-	void delete(Integer id);
+	boolean delete(Integer id)throws SQLException;
 
-	void create(User entity);
+	User create(User entity)throws SQLException;
 
 }

@@ -1,5 +1,6 @@
 package com.softserve.if078.tmwSpring.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,28 +24,28 @@ public class UserController {
 	UserService userService;
 
 	@GetMapping("/")
-	List<User> getAllUsers() {
+	List<User> getAllUsers() throws SQLException {
 		return userService.getAll();
 	}
 
 	@PostMapping("/")
-	void createUser(@RequestBody User user) {
-		userService.create(user);
+	User createUser(@RequestBody User user)throws SQLException {
+		return userService.create(user);
 	}
 
 	@GetMapping("/{userid}")
-	User getUser(@PathVariable Integer userid) {
+	User getUser(@PathVariable Integer userid)throws SQLException {
 		return userService.get(userid);
 	}
 
-	@PutMapping("/{userid}")
-	void updateUser(@RequestBody User user, @PathVariable Integer userid) {
-		userService.update(user, userid);
+	@PutMapping("/")
+	boolean updateUser(@RequestBody User user)throws SQLException {
+		return userService.update(user);
 	}
 
 	@DeleteMapping("/{userid}")
-	void deleteUser(@PathVariable Integer userid) {
-		userService.delete(userid);
+	boolean deleteUser(@PathVariable Integer userid) throws SQLException {
+		return userService.delete(userid);
 	}
 
 }

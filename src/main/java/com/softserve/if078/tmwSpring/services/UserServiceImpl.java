@@ -1,5 +1,6 @@
 package com.softserve.if078.tmwSpring.services;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User entity, Integer id) {
-		 userDao.update(entity);
+	public boolean update(User entity)throws SQLException {
+		return userDao.update(entity);
 	}
 
 	@Override
-	public void delete(Integer id) {
-		 userDao.delete(id);
+	public boolean delete(Integer id)throws SQLException {
+		return userDao.delete(id);
+		
 	}
 
 	@Override
-	public void create(User entity) {
-	  userDao.create(entity);
+	public User create(User entity)throws SQLException {
+		return userDao.create(entity);
+		
 	}
-
 }

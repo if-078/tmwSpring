@@ -34,10 +34,10 @@ public class UserServiceIntTest {
 		User userTest;
 		// When
 		userService.create(userNew);
-		userFromList = userService.getAll().stream().findFirst().get();
-		userTest = userService.get(userFromList.getId());
+		userNew = userService.create(userNew);
+		userTest = userService.get(userNew.getId());
 		// Then
-		assertEquals(userFromList.getId(), userTest.getId());
+		assertEquals(userNew.getId(),userTest.getId());
 	}
 
 }

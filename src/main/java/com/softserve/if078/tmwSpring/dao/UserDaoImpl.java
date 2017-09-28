@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.softserve.if078.tmwSpring.entities.User;
 
 @Component
-public class UserDaoImpl implements AbstractDAO<User> {
+public class UserDaoImpl implements UserDao {
 	
 	private final String tabName = "tmw.user";
 
@@ -68,45 +68,53 @@ public class UserDaoImpl implements AbstractDAO<User> {
 	}
 
 	@Override
-	public void update(User entity) {
+	public boolean update(User entity) throws SQLException{
+		int countUpdate = 0;
 		String sql = "UPDATE "+tabName+" SET name=?, pass=?, email=? WHERE user_id=?";
 		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql);) {
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getPass());
 			ps.setString(3, entity.getEmail());
 			ps.setInt(4, entity.getId());
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			countUpdate = ps.executeUpdate();
+			}
 		
+		return countUpdate == 1?true:false;	
 	}
 
 	@Override
-	public void delete(int id) {
+	public boolean delete(int id)throws SQLException {
+		int countUpdate = 0;
 		String sql = "DELETE FROM "+tabName+" WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();) {
-		stmt.executeUpdate(sql);
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
+			countUpdate = stmt.executeUpdate(sql);
 		}
+		
+		return countUpdate == 1?true:false;
 		
 		
 	}
 
 	@Override
-	public void create(User entity) {
+	public User create(User entity)throws SQLException {
 		String sql = "INSERT INTO "+tabName+" (name, pass, email)  VALUES (?, ?, ?)";
-		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql)) {
+		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getPass());
 			ps.setString(3, entity.getEmail());
 			ps.executeUpdate();
+			
+			ResultSet rsI = ps.getGeneratedKeys();
+			if(rsI.next()) {
+				entity.setId(rsI.getInt(1));
+			}
 		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		} 
+		return entity;
+	}
+
+	@Override
+	public User getNameAndPassword() {
+		return null;
 	}
 }
