@@ -6,39 +6,44 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softserve.if078.tmwSpring.dao.UserDaoImpl;
+import com.softserve.if078.tmwSpring.dao.UserDao;
 import com.softserve.if078.tmwSpring.entities.User;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDaoImpl userDao;
+	UserDao userDao;
 
 	@Override
-	public List<User> getAll()throws SQLException {
+	public List<User> getAll() throws SQLException {
 		return userDao.getAll();
 	}
 
 	@Override
-	public User get(Integer id)throws SQLException {
+	public User get(Integer id) throws SQLException {
 		return userDao.get(id);
 	}
 
 	@Override
-	public boolean update(User entity)throws SQLException {
+	public boolean update(User entity) throws SQLException {
 		return userDao.update(entity);
 	}
 
 	@Override
-	public boolean delete(Integer id)throws SQLException {
+	public boolean delete(Integer id) throws SQLException {
 		return userDao.delete(id);
-		
+
 	}
 
 	@Override
-	public User create(User entity)throws SQLException {
+	public User create(User entity) throws SQLException {
 		return userDao.create(entity);
-		
+
+	}
+
+	@Override
+	public User getByEmailAndPassword(String name, String pass) throws SQLException {
+		return userDao.getByEmailAndPassword(name, pass);
 	}
 }
