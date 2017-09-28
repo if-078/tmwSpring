@@ -30,14 +30,13 @@ public class UserServiceIntTest {
 		User userNew = new User();
 		userNew.setEmail("softServeAcademy@gmail.test");
 		userNew.setPass("academypassword");
-		User userFromList;
 		User userTest;
 		// When
 		userService.create(userNew);
 		userNew = userService.create(userNew);
 		userTest = userService.get(userNew.getId());
 		// Then
-		assertEquals(userNew.getId(),userTest.getId());
+		assertEquals(userNew.getId(), userTest.getId());
 	}
 
 }
