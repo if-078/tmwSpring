@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService {
 	UserDaoImpl userDao;
 
 	@Override
-	public List<User> getAll() {
+	public List<User> getAll()throws SQLException {
 		return userDao.getAll();
 	}
 
 	@Override
-	public User get(Integer id) {
+	public User get(Integer id)throws SQLException {
 		return userDao.get(id);
 	}
 

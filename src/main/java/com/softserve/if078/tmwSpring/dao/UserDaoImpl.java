@@ -23,36 +23,26 @@ public class UserDaoImpl implements UserDao {
 	DataSource datasource;
 
 	@Override
-	public List<User> getAll() {
+	public List<User> getAll()throws SQLException {
 		String sql = "SELECT * FROM " + tabName;
+		List users = new ArrayList<>(0);
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
-
-			List users = new ArrayList<>();
 			while (rs.next()) {
 				User user = extractUserFromResultSet(rs);
 				users.add(user);
 			}
-			return users;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return null;
+		} 
+		return users.size() > 0 ? users : null;
 	}
 
 	@Override
-	public User get(int id) {
+	public User get(int id) throws SQLException {
 		String sql = "SELECT * FROM "+ tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
-			if (rs.next()) {
-				return extractUserFromResultSet(rs);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+				return rs.next()? extractUserFromResultSet(rs) : null;
 		}
-		return null;
 	}
 
 
@@ -79,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 			countUpdate = ps.executeUpdate();
 			}
 		
-		return countUpdate == 1?true:false;	
+		return countUpdate == 1 ? true : false;	
 	}
 
 	@Override
@@ -90,7 +80,7 @@ public class UserDaoImpl implements UserDao {
 			countUpdate = stmt.executeUpdate(sql);
 		}
 		
-		return countUpdate == 1?true:false;
+		return countUpdate == 1 ? true : false;
 		
 		
 	}
