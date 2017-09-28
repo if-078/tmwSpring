@@ -16,14 +16,14 @@ import com.softserve.if078.tmwSpring.entities.User;
 
 @Component
 public class UserDaoImpl implements UserDao {
-	
+
 	private final String tabName = "tmw.user";
 
 	@Autowired
 	DataSource datasource;
 
 	@Override
-	public List<User> getAll()throws SQLException {
+	public List<User> getAll() throws SQLException {
 		String sql = "SELECT * FROM " + tabName;
 		List users = new ArrayList<>(0);
 		try (Statement stmt = datasource.getConnection().createStatement();
@@ -32,20 +32,18 @@ public class UserDaoImpl implements UserDao {
 				User user = extractUserFromResultSet(rs);
 				users.add(user);
 			}
-		} 
+		}
 		return users.size() > 0 ? users : null;
 	}
 
 	@Override
 	public User get(int id) throws SQLException {
-		String sql = "SELECT * FROM "+ tabName + " WHERE user_id=" + id;
+		String sql = "SELECT * FROM " + tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
-				return rs.next()? extractUserFromResultSet(rs) : null;
+			return rs.next() ? extractUserFromResultSet(rs) : null;
 		}
 	}
-
-
 
 	private User extractUserFromResultSet(ResultSet rs) throws SQLException {
 		User user = new User();
@@ -58,53 +56,59 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean update(User entity) throws SQLException{
+	public boolean update(User entity) throws SQLException {
 		int countUpdate = 0;
-		String sql = "UPDATE "+tabName+" SET name=?, pass=?, email=? WHERE user_id=?";
+		String sql = "UPDATE " + tabName + " SET name=?, pass=?, email=? WHERE user_id=?";
 		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql);) {
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getPass());
 			ps.setString(3, entity.getEmail());
 			ps.setInt(4, entity.getId());
 			countUpdate = ps.executeUpdate();
-			}
-		
-		return countUpdate == 1 ? true : false;	
+		}
+
+		return countUpdate == 1 ? true : false;
 	}
 
 	@Override
-	public boolean delete(int id)throws SQLException {
+	public boolean delete(int id) throws SQLException {
 		int countUpdate = 0;
-		String sql = "DELETE FROM "+tabName+" WHERE user_id=" + id;
+		String sql = "DELETE FROM " + tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();) {
 			countUpdate = stmt.executeUpdate(sql);
 		}
-		
+
 		return countUpdate == 1 ? true : false;
-		
-		
+
 	}
 
 	@Override
-	public User create(User entity)throws SQLException {
-		String sql = "INSERT INTO "+tabName+" (name, pass, email)  VALUES (?, ?, ?)";
+	public User create(User entity) throws SQLException {
+		String sql = "INSERT INTO " + tabName + " (name, pass, email)  VALUES (?, ?, ?)";
 		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getPass());
 			ps.setString(3, entity.getEmail());
 			ps.executeUpdate();
-			
+
 			ResultSet rsI = ps.getGeneratedKeys();
-			if(rsI.next()) {
+			if (rsI.next()) {
 				entity.setId(rsI.getInt(1));
 			}
-		
-		} 
+		}
+
 		return entity;
 	}
 
 	@Override
-	public User getNameAndPassword() {
-		return null;
+	public User getByEmailAndPassword(String email, String pass) throws SQLException {
+		String sql = "SELECT * FROM " + tabName + " WHERE email=? AND pass=?";
+		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql)) {
+			ps.setString(1, email);
+			ps.setString(2, pass);
+			ResultSet rs = ps.executeQuery();
+
+			return rs.next() ? extractUserFromResultSet(rs) : null;
+		}
 	}
 }

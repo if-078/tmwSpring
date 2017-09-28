@@ -7,14 +7,16 @@ import com.softserve.if078.tmwSpring.entities.User;
 
 public interface UserService {
 
-	List<User> getAll()throws SQLException;
+	List<User> getAll() throws SQLException;
 
-	User get(Integer id)throws SQLException;
+	User get(Integer id) throws SQLException;
 
-	boolean update(User entity)throws SQLException;
+	boolean update(User entity) throws SQLException;
 
-	boolean delete(Integer id)throws SQLException;
+	boolean delete(Integer id) throws SQLException;
 
-	User create(User entity)throws SQLException;
+	User create(User entity) throws SQLException;
+
+	User getByEmailAndPassword(String email, String pass) throws SQLException;
 
 }
