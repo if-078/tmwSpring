@@ -107,6 +107,27 @@ public class UserDaoImpl implements AbstractDAO<User> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	public List<User> getUsersByEmail (String email){
+		String q = "SELECT id, name, pass FROM " + tabName + " WHERE email = ?";
+		List<User> result = new ArrayList<>();
+		try (PreparedStatement statement = datasource.getConnection().prepareStatement(q)){
+			statement.setString(1 , email);
+			try (ResultSet set = statement.executeQuery()){
+				while (set.next()){
+					User user = new User();
+					user.setId(set.getInt(1));
+					user.setName(set.getString(2));
+					user.setPass(set.getString(3));
+					user.setEmail(email);
+					result.add(user);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 }
