@@ -18,26 +18,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:datasource.properties")
 public class DatabaseConfiguration {
 
-	@Autowired
-	Environment environment;
+    @Autowired
+    Environment environment;
 
-	@Bean
-	@Primary
-	@ConfigurationProperties(prefix = "datasource")
-	public DataSourceProperties dataSourceProperties() {
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "datasource")
+    public DataSourceProperties dataSourceProperties() {
 
-		return new DataSourceProperties();
-	}
+        return new DataSourceProperties();
+    }
 
-	@Bean
-	public DataSource dataSource() {
+    @Bean
+    public DataSource dataSource() {
 
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(environment.getProperty("jdbc.url"));
-		dataSource.setUsername(environment.getProperty("jdbc.username"));
-		dataSource.setPassword(environment.getProperty("jdbc.password"));
-		return dataSource;
-	}
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
+        dataSource.setUrl(environment.getProperty("jdbc.url"));
+        dataSource.setUsername(environment.getProperty("jdbc.username"));
+        dataSource.setPassword(environment.getProperty("jdbc.password"));
+        return dataSource;
+    }
 
 }

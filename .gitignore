@@ -1,6 +1,6 @@
 # Maven ###
 log/
-target/
+target
 !.mvn/wrapper/maven-wrapper.jar
 .mvn/timing.properties
 
@@ -29,7 +29,7 @@ nbdist/
 ### Eclipse ###
 .classpath
 .project
-.settings/
+.settings
 
 ### Binaries ###
 *.7z
