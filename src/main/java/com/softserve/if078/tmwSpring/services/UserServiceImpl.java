@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softserve.if078.tmwSpring.dao.UserDaoImpl;
+import com.softserve.if078.tmwSpring.dao.implementation.UserDaoImpl;
 import com.softserve.if078.tmwSpring.entities.User;
 
 @Service
@@ -20,18 +20,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(Integer id) {
-        return userDao.get(id);
+    public User get(User entity) {
+        return userDao.get(entity);
     }
 
     @Override
-    public void update(User entity, Integer id) {
+    public void update(User entity) {
         userDao.update(entity);
     }
 
     @Override
-    public void delete(Integer id) {
-        userDao.delete(id);
+    public void delete(User entity) {
+        userDao.delete(entity);
     }
 
     @Override

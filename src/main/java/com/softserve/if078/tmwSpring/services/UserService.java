@@ -8,11 +8,11 @@ public interface UserService {
 
 	List<User> getAll();
 
-	User get(Integer id);
+	User get(User entity);
 
-	void update(User entity, Integer id);
+	void update(User entity);
 
-	void delete(Integer id);
+	void delete(User entity);
 
 	void create(User entity);
 

@@ -1,4 +1,4 @@
-package com.softserve.if078.tmwSpring.dao;
+package com.softserve.if078.tmwSpring.dao.implementation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +9,14 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.softserve.if078.tmwSpring.dao.DaoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.softserve.if078.tmwSpring.entities.User;
 
 @Component
-public class UserDaoImpl implements AbstractDAO<User> {
+public class UserDaoImpl implements DaoInterface<User> {
 	
 	private final String tabName = "tmw.user";
 
@@ -41,9 +42,11 @@ public class UserDaoImpl implements AbstractDAO<User> {
 		return null;
 	}
 
+
+/*NEED CHANGE IMPLEMENTATION*/
 	@Override
-	public User get(int id) {
-		String sql = "SELECT * FROM "+ tabName + " WHERE user_id=" + id;
+	public User get(User entity) {
+		String sql = "SELECT * FROM "+ tabName + " WHERE user_id=" +entity.getId();
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
 			if (rs.next()) {
@@ -82,9 +85,11 @@ public class UserDaoImpl implements AbstractDAO<User> {
 		
 	}
 
+
+
 	@Override
-	public void delete(int id) {
-		String sql = "DELETE FROM "+tabName+" WHERE user_id=" + id;
+	public void delete(User entity) {
+		String sql = "DELETE FROM "+tabName+" WHERE user_id=" + entity.getId();
 		try (Statement stmt = datasource.getConnection().createStatement();) {
 		stmt.executeUpdate(sql);
 		

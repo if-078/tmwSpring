@@ -35,7 +35,7 @@ public class UserServiceIntTest {
 		// When
 		userService.create(userNew);
 		userFromList = userService.getAll().stream().findFirst().get();
-		userTest = userService.get(userFromList.getId());
+		userTest = userService.get(userFromList);
 		// Then
 		assertEquals(userFromList.getId(), userTest.getId());
 	}

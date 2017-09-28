@@ -2,6 +2,8 @@ package com.softserve.if078.tmwSpring.configurations;
 
 import javax.sql.DataSource;
 
+import com.softserve.if078.tmwSpring.dao.DaoInterface;
+import com.softserve.if078.tmwSpring.dao.implementation.StatusDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -30,8 +32,7 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() {
-
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getProperty("jdbc.url"));
@@ -39,5 +40,7 @@ public class DatabaseConfiguration {
         dataSource.setPassword(environment.getProperty("jdbc.password"));
         return dataSource;
     }
+
+
 
 }

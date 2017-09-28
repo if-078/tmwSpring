@@ -19,7 +19,7 @@ import com.softserve.if078.tmwSpring.services.UserService;
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
+	/*@Autowired
 	UserService userService;
 
 	@GetMapping("/")
@@ -38,13 +38,13 @@ public class UserController {
 	}
 
 	@PutMapping("/{userid}")
-	void updateUser(@RequestBody User user, @PathVariable Integer userid) {
-		userService.update(user, userid);
+	void updateUser(@RequestBody User user) {
+		userService.update(user);
 	}
 
 	@DeleteMapping("/{userid}")
 	void deleteUser(@PathVariable Integer userid) {
-		userService.delete(userid);
+		userService.delete();
 	}
-
+*/
 }
