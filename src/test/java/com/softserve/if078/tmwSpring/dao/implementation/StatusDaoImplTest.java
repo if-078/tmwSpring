@@ -14,16 +14,16 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {StatusDaoImplTest.TestConfig.class})
@@ -53,19 +53,8 @@ public class StatusDaoImplTest {
         properties.setProperty("deleteQuery", deleteQuery);
     }
 
-    @Before
-    @Sql("init_status_table.sql")
-    public void preperationWork() throws IOException, SQLException {
-
-    }
-
-    @After
-    @Sql("clear_status_table.sql")
-    public void clearTables() throws IOException, SQLException {
-
-    }
-
     @Test
+    @SqlGroup({@Sql("init_status_table.sql"), @Sql(scripts = "clear_status_table.sql", executionPhase = AFTER_TEST_METHOD)})
     public void getAll() throws Exception {
         Status status = new Status();
         status.setId(1);
@@ -93,6 +82,7 @@ public class StatusDaoImplTest {
     }
 
     @Test
+    @SqlGroup({@Sql("init_status_table.sql"), @Sql(scripts = "clear_status_table.sql", executionPhase = AFTER_TEST_METHOD)})
     public void get() throws Exception {
         Status expectedStatus = new Status();
         expectedStatus.setId(1);
@@ -103,6 +93,7 @@ public class StatusDaoImplTest {
     }
 
     @Test
+    @SqlGroup({@Sql("init_status_table.sql"), @Sql(scripts = "clear_status_table.sql", executionPhase = AFTER_TEST_METHOD)})
     public void update() throws Exception {
         Status expectedStatus = new Status();
         expectedStatus.setId(1);
@@ -114,6 +105,7 @@ public class StatusDaoImplTest {
     }
 
     @Test
+    @SqlGroup({@Sql("init_status_table.sql"), @Sql(scripts = "clear_status_table.sql", executionPhase = AFTER_TEST_METHOD)})
     public void delete() throws Exception {
         Status status = new Status();
         status.setId(1);
@@ -143,6 +135,7 @@ public class StatusDaoImplTest {
     }
 
     @Test
+    @SqlGroup({@Sql("init_status_table.sql"), @Sql(scripts = "clear_status_table.sql", executionPhase = AFTER_TEST_METHOD)})
     public void create() throws Exception {
         Status expectedStatus = new Status();
         expectedStatus.setId(5);
