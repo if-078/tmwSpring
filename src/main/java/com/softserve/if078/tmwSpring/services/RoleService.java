@@ -21,4 +21,6 @@ public interface RoleService {
 
 	List<Role> create(Role... roles) throws SQLException;
 
+	boolean drop() throws SQLException;
+
 }

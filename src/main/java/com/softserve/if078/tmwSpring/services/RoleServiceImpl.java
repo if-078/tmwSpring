@@ -48,4 +48,9 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> create(Role... roles) throws SQLException {
 		return roleDao.create(roles);
 	}
+
+	@Override
+	public boolean drop() throws SQLException {
+		return roleDao.dropTable();
+	}
 }

@@ -28,7 +28,7 @@ public class RoleServiceTest {
 
 //    @After
 //    public void dropTable() throws Exception {
-//
+//        roleService.drop();
 //    }
 
 
@@ -60,7 +60,7 @@ public class RoleServiceTest {
             if (role.getId() == id) assertEquals("zxcv" + id++, role.getName());
         }
         roleService.deleteAll();
-        assertNull(roleService.getAll());
+        assertEquals(0, roleService.getAll().size());
     }
 
     @Test(expected = IllegalArgumentException.class)
