@@ -55,7 +55,7 @@ public class RoleDaoImpl implements RoleDao {
         if (id < 0) throw new IllegalArgumentException("Incorrect argument");
         try (Statement statement = datasource.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("Select * from " +
-                    tabName + " where role_id=?" + id);) {
+                    tabName + " where role_id=" + id)) {
             if (resultSet.next()) {
                 return new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
             }
@@ -93,7 +93,7 @@ public class RoleDaoImpl implements RoleDao {
         if (id < 0) throw new IllegalArgumentException();
         try (Statement statement = datasource.getConnection().createStatement()) {
                 return statement.executeUpdate("Delete From " +
-                        tabName + " Where role_id=?" + id) != 0;
+                        tabName + " Where role_id=" + id) != 0;
         }
     }
 
