@@ -36,7 +36,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Comment get(int id) throws SQLException {
+    public Comment findOne(int id) throws SQLException {
         String sql = "SELECT * FROM "+ tabName + " WHERE comment_id=" + id;
         try (Statement stmt = datasource.getConnection().createStatement();
              ResultSet resultSet = stmt.executeQuery(sql);) {
@@ -75,7 +75,7 @@ public class CommentDaoImpl implements CommentDao {
             countUpdate = stmt.executeUpdate(sql);
         }
 
-        return countUpdate == 1 ? true : false;
+        return countUpdate == 1;
     }
 
     @Override

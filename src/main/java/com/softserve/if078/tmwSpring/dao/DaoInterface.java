@@ -7,7 +7,7 @@ public interface DaoInterface<E> {
 
 	List<E> getAll() throws SQLException;
 
-	E get(int id) throws SQLException;
+	E findOne(int id) throws SQLException;
 
 	boolean update(E entity)throws SQLException;
 

@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.softserve.if078.tmwSpring.TmwSpringApplicationTests;
 import com.softserve.if078.tmwSpring.configurations.H2DbConfig;
 import com.softserve.if078.tmwSpring.entities.Comment;
 
@@ -21,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = "com.softserve.if078.tmwSpring")
-@SpringBootTest(classes = { TmwSpringApplicationTests.class, H2DbConfig.class })
+@SpringBootTest(classes = {H2DbConfig.class })
 @EnableConfigurationProperties
 public class CommentServiceIntTest {
 

@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User get(Integer id) throws SQLException {
-		return userDao.get(id);
+		return userDao.findOne(id);
 	}
 
 	@Override
@@ -43,7 +43,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getByEmailAndPassword(String name, String pass) throws SQLException {
-		return userDao.getByEmailAndPassword(name, pass);
+	public User findByEmail(String email) throws SQLException {
+		return userDao.findByEmail(email);
 	}
+
 }

@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User get(int id) throws SQLException {
+	public User findOne(int id) throws SQLException {
 		String sql = "SELECT * FROM " + tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);) {
@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 			countUpdate = ps.executeUpdate();
 		}
 
-		return countUpdate == 1 ? true : false;
+		return countUpdate == 1;
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao {
 			countUpdate = stmt.executeUpdate(sql);
 		}
 
-		return countUpdate == 1 ? true : false;
+		return countUpdate == 1;
 
 	}
 
@@ -103,11 +103,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getByEmailAndPassword(String email, String pass) throws SQLException {
-		String sql = "SELECT * FROM " + tabName + " WHERE email=? AND pass=?";
+	public User findByEmail(String email) throws SQLException {
+		String sql = "SELECT * FROM " + tabName + " WHERE email=?";
 		try (PreparedStatement ps = datasource.getConnection().prepareStatement(sql)) {
 			ps.setString(1, email);
-			ps.setString(2, pass);
 			ResultSet rs = ps.executeQuery();
 
 			return rs.next() ? extractUserFromResultSet(rs) : null;
