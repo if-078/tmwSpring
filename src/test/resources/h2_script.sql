@@ -55,11 +55,7 @@ CREATE TABLE IF NOT EXISTS "tmw"."Comment" (
   `created_date` TIMESTAMP NULL,
   `task_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  PRIMARY KEY (`comment_id`),
-     FOREIGN KEY (`task_id`)
-    REFERENCES "tmw"."Task" (`task_id`),
-    FOREIGN KEY (`user_id`)
-    REFERENCES "tmw"."User" (`user_id`))
+  PRIMARY KEY (`comment_id`))
 ENGINE = InnoDB;
 
 

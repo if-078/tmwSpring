@@ -10,16 +10,18 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.softserve.if078.tmwSpring.entities.User;
 
 @Component
 public class UserDaoImpl implements UserDao {
-	
+
 	private final String tabName = "tmw.user";
 
-	@Autowired
+    @Qualifier("dataSource")
+    @Autowired
 	DataSource datasource;
 
 	@Override
