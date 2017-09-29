@@ -20,8 +20,8 @@ public class UserDaoImpl implements UserDao {
 
 	private final String tabName = "tmw.user";
 
-    @Qualifier("dataSource")
-    @Autowired
+	@Autowired
+	@Qualifier("dataSource")
 	DataSource datasource;
 
 	@Override
