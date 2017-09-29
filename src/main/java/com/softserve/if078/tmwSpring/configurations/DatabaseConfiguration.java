@@ -26,8 +26,10 @@ public class DatabaseConfiguration {
 	@ConfigurationProperties(prefix = "datasource")
 	public DataSourceProperties dataSourceProperties() {
 
+
 		return new DataSourceProperties();
 	}
+
 
 	@Bean
 	public DataSource dataSource() {

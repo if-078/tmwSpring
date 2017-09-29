@@ -24,41 +24,40 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:datasource-test.properties")
 public class H2DbConfig {
 
-	@Autowired
-	Environment environment;
+    @Autowired
+    Environment environment;
 
-	@Bean
-	@Primary
-	@ConfigurationProperties(prefix = "datasource-test")
-	public DataSourceProperties dataSourceProperties() {
-		initDb();
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "datasource-test")
+    public DataSourceProperties dataSourceProperties() {
+        initDb();
+        return new DataSourceProperties();
+    }
 
-		return new DataSourceProperties();
-	}
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
+        dataSource.setUrl(environment.getProperty("jdbc.url"));
+        dataSource.setUsername(environment.getProperty("jdbc.username"));
+        dataSource.setPassword(environment.getProperty("jdbc.password"));
+        return dataSource;
+    }
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(environment.getProperty("jdbc.url"));
-		dataSource.setUsername(environment.getProperty("jdbc.username"));
-		dataSource.setPassword(environment.getProperty("jdbc.password"));
-		return dataSource;
-	}
+    public void initDb() {
+        try {
+            File f = new File("src\\test\\resources\\data-h2.sql");
+            FileReader reader = null;
+            try {
+                reader = new FileReader(f);
 
-	public void initDb() {
-		try {
-			File f = new File("src\\test\\resources\\h2_script.sql");
-			FileReader reader = null;
-			try {
-				reader = new FileReader(f);
-
-			} catch (FileNotFoundException ex) {
-				System.err.println("File not found excp");
-			}
-			RunScript.execute(dataSource().getConnection(), reader);
-		} catch (SQLException ex) {
-			System.err.println("Some exp in script");
-		}
-	}
+            } catch (FileNotFoundException ex) {
+                System.err.println("File not found excp");
+            }
+            RunScript.execute(dataSource().getConnection(), reader);
+        } catch (SQLException ex) {
+            System.err.println("Some exp in script");
+        }
+    }
 }

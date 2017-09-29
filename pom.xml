@@ -8,8 +8,26 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+<<<<<<< Updated upstream
 	<name>tmwSpring</name>
 	<description>tmw demo</description>
+=======
+    <name>tmwSpring</name>
+    <description>tmw demo</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+>>>>>>> Stashed changes
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,6 +42,7 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+<<<<<<< Updated upstream
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,6 +55,11 @@
 		<dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+=======
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+>>>>>>> Stashed changes
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -68,5 +92,9 @@
 		</plugins>
 	</build>
 
+<<<<<<< Updated upstream
+=======
+    </dependencies>
+>>>>>>> Stashed changes
 
 </project>

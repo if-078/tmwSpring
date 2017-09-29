@@ -18,7 +18,7 @@ import com.softserve.if078.tmwSpring.entities.User;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = "com.softserve.if078.tmwSpring")
-@SpringBootTest(classes = { TmwSpringApplicationTests.class, H2DbConfig.class })
+@SpringBootTest(classes = {H2DbConfig.class })
 @EnableConfigurationProperties
 public class UserServiceIntTest {
 
