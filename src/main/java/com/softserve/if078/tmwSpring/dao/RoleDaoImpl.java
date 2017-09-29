@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.softserve.if078.tmwSpring.entities.Role;
@@ -20,10 +21,11 @@ public class RoleDaoImpl implements RoleDao {
     private final String tabName = "tmw.role";
 
     @Autowired
+    @Qualifier("dataSource")
     DataSource datasource;
 
     @Override
-    public Role create(Role role) throws SQLException, IllegalArgumentException, NullPointerException {
+    public Role create(Role role) throws SQLException {
         if (role.getId() < 0 || role.getName().equals("") || role.getName().equals(null))
             throw new IllegalArgumentException("Incorrect arguments of role");
         try (PreparedStatement preparedStatement = datasource.getConnection().prepareStatement("insert into " +
@@ -32,14 +34,15 @@ public class RoleDaoImpl implements RoleDao {
             preparedStatement.setString(1, role.getName());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            while (resultSet.next()) {
-                role.setId(resultSet.getInt("role_id"));
+            if (resultSet.next()) {
+                role.setId(resultSet.getInt(1));
             }
-        } return role;
+        }
+        return role;
     }
 
     @Override
-    public List<Role> create(Role... roles) throws SQLException, IllegalArgumentException, NullPointerException {
+    public List<Role> create(Role... roles) throws SQLException {
         List<Role> list = new ArrayList<>();
         for (Role role : roles) {
             list.add(create(role));
@@ -48,11 +51,11 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role get(int id) throws SQLException, IllegalArgumentException {
+    public Role get(int id) throws SQLException {
         if (id < 0) throw new IllegalArgumentException("Incorrect argument");
-        try (Statement statement = datasource.getConnection().createStatement()) {
+        try (Statement statement = datasource.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("Select * from " +
-                    tabName + " where role_id=?" + id);
+                    tabName + " where role_id=?" + id);) {
             if (resultSet.next()) {
                 return new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
             }
@@ -74,7 +77,7 @@ public class RoleDaoImpl implements RoleDao {
         }
 
     @Override
-    public boolean update(Role role) throws SQLException, IllegalArgumentException, NullPointerException {
+    public boolean update(Role role) throws SQLException {
         if (role.getName().equals("") || role.getName().equals(null))
             throw new IllegalArgumentException("Incorrect arguments of role");
         try (PreparedStatement preparedStatement = datasource.getConnection().prepareStatement("Update " +
@@ -86,7 +89,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public boolean delete(int id) throws SQLException, IllegalArgumentException {
+    public boolean delete(int id) throws SQLException {
         if (id < 0) throw new IllegalArgumentException();
         try (Statement statement = datasource.getConnection().createStatement()) {
                 return statement.executeUpdate("Delete From " +

@@ -32,13 +32,13 @@ public class RoleController {
 		return roleService.create(role);
 	}
 
-	@PostMapping("/")
+	@PostMapping("/roles")
 	List<Role> createRoles(@RequestBody Role... roles)throws SQLException {
 		return roleService.create(roles);
 	}
 
 	@GetMapping("/{roleid}")
-	Role getRole(@PathVariable int roleid)throws SQLException {
+	Role getRole(@PathVariable Integer roleid)throws SQLException {
 		return roleService.get(roleid);
 	}
 

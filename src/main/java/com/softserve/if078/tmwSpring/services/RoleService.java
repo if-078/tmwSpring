@@ -9,7 +9,7 @@ public interface RoleService {
 
 	List<Role> getAll()throws SQLException;
 
-	Role get(int id)throws SQLException;
+	Role get(Integer id)throws SQLException;
 
 	boolean update(Role entity)throws SQLException;
 
