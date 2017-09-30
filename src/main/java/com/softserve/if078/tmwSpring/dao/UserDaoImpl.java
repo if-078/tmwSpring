@@ -29,20 +29,20 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM " + tabName;
 		List users = new ArrayList<>(0);
 		try (Statement stmt = datasource.getConnection().createStatement();
-		    ResultSet rs = stmt.executeQuery(sql);) {
+		    ResultSet rs = stmt.executeQuery(sql)) {
 			while (rs.next()) {
 				User user = extractUserFromResultSet(rs);
 				users.add(user);
 			}
 		}
-		return users.size() > 0 ? users : null;
+		return users;
 	}
 
 	@Override
 	public User findOne(int id) throws SQLException {
 		String sql = "SELECT * FROM " + tabName + " WHERE user_id=" + id;
 		try (Statement stmt = datasource.getConnection().createStatement();
-		    ResultSet rs = stmt.executeQuery(sql);) {
+		    ResultSet rs = stmt.executeQuery(sql)) {
 			return rs.next() ? extractUserFromResultSet(rs) : null;
 		}
 	}
