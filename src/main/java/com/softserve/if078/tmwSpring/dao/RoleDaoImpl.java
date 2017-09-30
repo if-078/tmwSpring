@@ -51,7 +51,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role get(int id) throws SQLException {
+    public Role findOne(int id) throws SQLException {
         if (id < 0) throw new IllegalArgumentException("Incorrect argument");
         try (Statement statement = datasource.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("Select * from " +

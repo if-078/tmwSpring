@@ -17,6 +17,6 @@ public interface UserService {
 
 	User create(User entity) throws SQLException;
 
-	User getByEmailAndPassword(String email, String pass) throws SQLException;
+	User findByEmail(String email) throws SQLException;
 
 }

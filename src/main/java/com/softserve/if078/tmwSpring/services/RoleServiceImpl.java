@@ -21,7 +21,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role get(Integer id)throws SQLException {
-		return roleDao.get(id);
+		return roleDao.findOne(id);
 	}
 
 	@Override

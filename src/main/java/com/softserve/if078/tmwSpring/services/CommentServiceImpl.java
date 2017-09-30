@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment get(int id)throws SQLException {
-        return commentDao.get(id);
+        return commentDao.findOne(id);
     }
 
     @Override
