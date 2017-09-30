@@ -6,17 +6,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class User {
 
-	private int user_id;
+	private int id;
 	private String name;
 	private String pass;
 	private String email;
 
 	public int getId() {
-		return user_id;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.user_id = id;
+		this.id = id;
 	}
 
 	public String getName() {
