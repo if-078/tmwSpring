@@ -10,4 +10,6 @@ public interface RoleDao extends DaoInterface<Role> {
 	List<Role> create(Role... roles) throws SQLException;
 
 	boolean deleteAll() throws SQLException;
+
+	boolean dropTable() throws SQLException;
 }

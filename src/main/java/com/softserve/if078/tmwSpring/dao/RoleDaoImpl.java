@@ -47,7 +47,7 @@ public class RoleDaoImpl implements RoleDao {
         for (Role role : roles) {
             list.add(create(role));
         }
-        return list.size() > 0 ? list : null;
+        return list;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RoleDaoImpl implements RoleDao {
             ResultSet resultSet = statement.executeQuery("Select * from " +
                     tabName + " where role_id=" + id)) {
             if (resultSet.next()) {
-                return new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
+                return setRoleFromTable(resultSet);
             }
             return null;
         }
@@ -69,11 +69,10 @@ public class RoleDaoImpl implements RoleDao {
             ResultSet resultSet = statement.executeQuery("Select * from " + tabName);
             List<Role> roles = new ArrayList<>();
                 while (resultSet.next()) {
-                    roles.add(new Role(resultSet.getInt("role_id"), resultSet.getString("name")));
+                    roles.add(setRoleFromTable(resultSet));
                 }
-                if (roles.size() > 0) return roles;
+                return roles;
             }
-            return null;
         }
 
     @Override
@@ -102,6 +101,17 @@ public class RoleDaoImpl implements RoleDao {
         try (Statement statement = datasource.getConnection().createStatement()) {
             return statement.executeUpdate("Delete from " + tabName) != 0;
         }
+    }
+
+    @Override
+    public boolean dropTable() throws SQLException{
+        try (Statement statement = datasource.getConnection().createStatement()) {
+            return statement.executeUpdate("Drop table " + tabName) != 0;
+        }
+    }
+
+    public Role setRoleFromTable (ResultSet resultSet) throws SQLException{
+        return new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
     }
 }
 
