@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.softserve.if078.tmwSpring.entities.User;
+import org.springframework.stereotype.Repository;
 
 @Component
 public class UserDaoImpl implements UserDao {
