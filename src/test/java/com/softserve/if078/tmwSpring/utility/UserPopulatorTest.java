@@ -1,4 +1,4 @@
-package com.softserve.if078.tmwSpring.services;
+package com.softserve.if078.tmwSpring.utility;
 
 import com.softserve.if078.tmwSpring.configurations.H2DbConfig;
 import com.softserve.if078.tmwSpring.entities.User;
