@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Comment {
     private int commentId;
     private String commentText;
-    private LocalDateTime createdDate = LocalDateTime.now();;
+    private LocalDateTime createdDate = LocalDateTime.now();
     private int taskId;
     private int userId;
 
