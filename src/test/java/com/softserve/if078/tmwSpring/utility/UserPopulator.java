@@ -4,11 +4,11 @@ package com.softserve.if078.tmwSpring.utility;
 import com.softserve.if078.tmwSpring.dao.UserDaoImpl;
 import com.softserve.if078.tmwSpring.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.test.context.TestComponent;
 
 import java.sql.SQLException;
 
-@Component
+@TestComponent
 public class UserPopulator {
 
     @Autowired
