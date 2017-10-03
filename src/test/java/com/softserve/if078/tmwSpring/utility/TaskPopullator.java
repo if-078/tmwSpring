@@ -13,11 +13,22 @@ import java.sql.Time;
 
 @TestComponent
 public class TaskPopullator {
+    private TaskDao taskDao;
+    private UserPopulator userPopulator;
+    private PriorityDao priorityDao;
 
-    @Autowired TaskDao taskDao;
-    @Autowired UserPopulator userPopulator;
-    @Autowired PriorityDao priorityDao;
-
+    @Autowired
+    public void setTaskDao(TaskDao taskDao) {
+        this.taskDao = taskDao;
+    }
+    @Autowired
+    public void setUserPopulator(UserPopulator userPopulator) {
+        this.userPopulator = userPopulator;
+    }
+    @Autowired
+    public void setPriorityDao(PriorityDao priorityDao) {
+        this.priorityDao = priorityDao;
+    }
 
     public Task createDefaultHeadTask () throws SQLException {
         int hourFromMillSecs = 1000 * 60 * 60;
@@ -32,5 +43,4 @@ public class TaskPopullator {
         // task.setPriority_id(priorityDao.getAll().get(0).getId()); // set up first preority by default;
         return taskDao.create(task);
     }
-
 }

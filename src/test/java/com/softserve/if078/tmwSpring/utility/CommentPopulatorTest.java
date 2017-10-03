@@ -1,7 +1,7 @@
 package com.softserve.if078.tmwSpring.utility;
 
 import com.softserve.if078.tmwSpring.configurations.H2DbConfig;
-import com.softserve.if078.tmwSpring.entities.Task;
+import com.softserve.if078.tmwSpring.entities.Comment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +17,14 @@ import java.sql.SQLException;
 @ComponentScan(basePackages = "com.softserve.if078.tmwSpring")
 @SpringBootTest(classes = {H2DbConfig.class })
 @EnableConfigurationProperties
-public class TaskPopulatorTest {
+public class CommentPopulatorTest {
 
     @Autowired
-    TaskPopullator popullator;
+    CommentPopulator commentPopulator;
 
     @Test
-    public void taskCreatedAndIdIncremented() throws SQLException {
-        Task task = popullator.createDefaultHeadTask();
-        Assert.assertTrue(task.getId() > 0);
+    public void commentPopulatorInWork() throws SQLException {
+        Comment comment = commentPopulator.createDefaultComment();
+        Assert.assertTrue(comment.getCommentId()>0);
     }
-
-
-
 }
